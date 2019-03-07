@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+	<form>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<div align="center">
+			<span>BT</span>
+			<input name="aae010" id="aae010" class="mini-combobox" data="[{'text':'BTLibrary','id':'1'},{'text':'BTRabbit','id':'2'}]" textField="text" valueField="id" value="1"/>
+			<input name="aae013" id="aae013" class="mini-textbox" width="500px" onvaluechanged="search()">
+			<a class="mini-button" onclick="search()">查询</a>
+		</div>
+		<br/>
+		<div align="center">
+			<input labelField="true" style="width:600px;height:200px" id="textarea1" name="Area" class="mini-textarea" />
+			<a class="mini-button" onclick="copy()">复制</a>	
+		</div>
+
+	</form>
+</div>
+
+<script src="/scripts/boot.js" type="text/javascript"></script>
+<script type="text/javascript">
+mini.parse();
+
+function search() {
+	var aae010 = mini.get("aae010").getValue();
+	var aae013 = mini.get("aae013").getValue();
+	if (aae013 == "") {
+		return;
+	} else {
+		$.ajax({
+			 url:"/reptile/get",
+			 data : {url:aae013,flag:aae010},
+			 success:function(result){
+				 mini.get("textarea1").setValue(result);
+			        mini.get("aae013").setValue("");
+		    }});
+	}
+}
+
+</script>
+
+</body>
+</html>
